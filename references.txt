@@ -1,0 +1,11 @@
+Nicole Beaulieu
+Udacity Front End Developer
+Project 4, Web Performance Project
+January 15, 2015
+
+The following list includes the sites I referenced while developing this site for project submission:
+
+http://css-tricks.com/authoring-critical-fold-css/
+https://developers.google.com/speed/docs/insights/OptimizeCSSDelivery
+https://developers.google.com/web/fundamentals/performance/critical-rendering-path/measure-crp
+https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/image-optimization
