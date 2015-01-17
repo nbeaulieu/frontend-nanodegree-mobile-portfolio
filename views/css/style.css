@@ -1,6 +1,7 @@
-/** {
-  outline: 1px solid red !important;
+/* * {
+  outline: 1px solid black !important;
 }*/
+
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -30,12 +31,16 @@ form {
 }
 
 .mover {
-  position: fixed;
+  overflow-x: hidden; /* Makes sure that pizzas that aren't in the viewport are not drawn and taking up drawing cycles. */
+  position: fixed;    /* Makes sure that the pizzas don't scroll with the page but stay in place vertically. */
+  backface-visibility: hidden; /* Pairs with position: fixed to improve performance. */
+  -webkit-backface-visibility: hidden;
   width: 256px;
-  z-index: -1;
+  z-index: -1;      /* Draws pizzas in own layer and beneath red backgorund. */
 }
 
 .randomPizzaContainer {
+  overflow-x: hidden; /* Makes sure that pizzas that aren't in the viewport are not drawn and taking up drawing cycles. */
   float: left;
   display: flex;
 }
@@ -46,6 +51,7 @@ form {
   clear:both;
 }
 
- .container {
+.container {
   background-color: rgba(240, 60, 60, 0.8);
 }
+

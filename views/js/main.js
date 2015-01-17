@@ -379,9 +379,10 @@ var pizzaElementGenerator = function(i) {
   pizzaContainer.id = "pizza" + i;                // gives each pizza element a unique id
   pizzaImageContainer.classList.add("col-md-6");
 
-  pizzaImage.src = "images/pizza2.png";
-  pizzaImage.style.width = "125px";
-  pizzaImage.style.height = "125px";
+  // Create the pizza with the image designed to fit without scaling.
+  pizzaImage.src = "images/pizza125x125.png";
+  //pizzaImage.style.width = "100%";//"125px";
+  //pizzaImage.style.height = "100%";//"125px";
   pizzaImage.classList.add("img-responsive");
   pizzaImageContainer.appendChild(pizzaImage);
   pizzaContainer.appendChild(pizzaImageContainer);
@@ -442,6 +443,7 @@ var resizePizzas = function(size) {
           return 0.5;
         default:
           console.log("bug in sizeSwitcher");
+          return 1.0;
       }
     }
 
@@ -497,18 +499,34 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
   console.log("Average time to generate last 10 frames: " + sum / 10 + "ms");
 }
 
+// Defines whether or not an update request as been made. Used to prevent
+// update requests from being made while another is in process.
+var updateRequestInProcess = false;
+
 // The following code for sliding background pizzas was pulled from Ilya's demo found at:
 // https://www.igvita.com/slides/2012/devtools-tips-and-tricks/jank-demo.html
-
-// Moves the sliding background pizzas based on scroll position
+/*
+ * This function is called to update the scrolling pizza positions.
+ */
 function updatePositions() {
+
+  // Performance measuring support.
   frame++;
   window.performance.mark("mark_start_frame");
 
-  var items = document.querySelectorAll('.mover');
-  for (var i = 0; i < items.length; i++) {
-    var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
-    items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
+  // Update the position of each pizza based on the current scroll position.
+  // Pizzas are stored in the global slidingPizzas variable.
+  for (var i = 0, totalPizzas = slidingPizzas.length; i < totalPizzas; i++) {
+
+    var phase = Math.sin(scrollTop + (i % 5)); 
+
+    // Create the style string. Use the cached values so that we aren't reading and updating the dom
+    // in the same instruction.  This is to minimize the reflows and repaints.
+    slidingPizzas[i].style.left = basicLefts[i] + 100 * phase + 'px';
+
+    // Transform may perform better by offloading the work to the GPU.
+    //var value = basicLefts[i] + 100 * phase + 'px';
+    //slidingPizzas[i].style.transform='translateX(' + value + ')'; 
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
@@ -519,24 +537,98 @@ function updatePositions() {
     var timesToUpdatePosition = window.performance.getEntriesByName("measure_frame_duration");
     logAverageFrame(timesToUpdatePosition);
   }
+
+  // The udpate is complete, allow another to be scheduled.
+  updateRequestInProcess = false;
 }
 
-// runs updatePositions on scroll
-window.addEventListener('scroll', updatePositions);
+/*
+ * This funciton is called when the window scroll event is detected.
+ * This function keeps track of the scroll location that will be used to update
+ * the scrolling pizza displays.  If an update is not already in process, the
+ * function requests that the browser updates the pizza positions on the next window
+ * udpate.  This maximizes frame rate by ensuring that that drawing is synchronized
+ * with the refresh as best as possible.
+ */
+function onScroll() {
+
+  // Make sure that only one update request has been scheduled.
+  if (updateRequestInProcess == false) {
+
+    // Get the current scroll position and offset by page size.  Do not do this in
+    // in the pizza loop because the extra calculations are expensive.
+    scrollTop = document.body.scrollTop / screen.height;
+
+    /* Use the browser's requestAnimationFrame function to call the pizza updating
+     * function as soon as the browser is able to draw another frame.
+     */
+    window.requestAnimationFrame(updatePositions);
+
+    // Set the flag that denotes that an update request has been made.
+    updateRequestInProcess = true;
+  }
+}
+
+// Register the callback that will be invoked when the scroll event is fired.
+window.addEventListener('scroll', onScroll);
+document.addEventListener('DOMContentLoaded', createSlidingPizzas);
+
+// Create a global variable to hold all of the sliding pizzas.  This saves time
+// so that the pizzas don't have to be located each frame update.
+var slidingPizzas = null;
+var basicLefts = null;
 
 // Generates the sliding pizzas when the page loads.
-document.addEventListener('DOMContentLoaded', function() {
+function createSlidingPizzas () {
+
+  // We want 8 pizzas per row.
   var cols = 8;
+  // The height of each row is 256.
   var s = 256;
-  for (var i = 0; i < 200; i++) {
+
+  // Figure out the maximum number of rows based on the max height of the screen.
+  // Doing this will prevent having to recalculate the number of rows and regernate
+  // pizzas on window resize.  We are creating our worst case number of pizzas instead
+  // of using the magic numbers provided.
+  var rows = Math.ceil(screen.height / 256);
+
+  // Determine the number of pizzas to create.
+  var totalPizzas = cols * rows;
+
+  // Create each pizza.
+  for (var i = 0; i < totalPizzas; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
-    elem.src = "images/pizza2.png";
-    elem.style.height = "90px";
-    elem.style.width = "90px";
+    elem.src = "images/pizza75x75.png";
+    elem.style.height = "75px";
+    elem.style.width = "75px";
     elem.basicLeft = (i % cols) * s;
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
+    // Add the pizza to the DOM.
     document.querySelector("#movingPizzas1").appendChild(elem);
   }
-  updatePositions();
-});
+  
+  // Get all of the pizzas and store in the global variable.
+  slidingPizzas = document.querySelectorAll('.mover');
+
+  // To help optimize reflow and document redrawing, we want to update our document
+  // from values that do not require a read from a dom element.  To this end, we'll
+  // keep a  list of starting left positions that correspond with the sliding pizzas.
+  basicLefts = [];
+  basicLefts.length = slidingPizzas.length;
+  for (var i = 0, pizzaCount = slidingPizzas.length; i < pizzaCount; i++) {
+    basicLefts[i] = slidingPizzas[i].basicLeft;
+  }
+
+  // Get the current scroll position and offset by page size.  Do not do this in
+  // in the pizza loop because the extra calculations are expensive.
+  scrollTop = document.body.scrollTop / screen.height;
+
+  /* Use the browser's requestAnimationFrame function to call the pizza updating
+   * function as soon as the browser is able to draw another frame.
+   */
+  window.requestAnimationFrame(updatePositions);
+  // Set the flag that denotes that an update request has been made.
+  updateRequestInProcess = true;
+}
+

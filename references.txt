@@ -1,7 +1,7 @@
 Nicole Beaulieu
 Udacity Front End Developer
 Project 4, Web Performance Project
-January 15, 2015
+January 16, 2015
 
 The following list includes the sites I referenced while developing this site for project submission:
 
@@ -9,3 +9,10 @@ http://css-tricks.com/authoring-critical-fold-css/
 https://developers.google.com/speed/docs/insights/OptimizeCSSDelivery
 https://developers.google.com/web/fundamentals/performance/critical-rendering-path/measure-crp
 https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/image-optimization
+http://www.smashingmagazine.com/2013/06/10/pinterest-paint-performance-case-study/
+http://www.html5rocks.com/en/tutorials/speed/scrolling/
+http://updates.html5rocks.com/2013/02/Profiling-Long-Paint-Times-with-DevTools-Continuous-Painting-Mode
+http://www.html5rocks.com/en/tutorials/speed/animations/
+https://developers.google.com/speed/articles/reflow
+https://engineering.gosquared.com/optimising-60fps-everywhere-in-javascript
+http://css-tricks.com/almanac/properties/t/transform/
