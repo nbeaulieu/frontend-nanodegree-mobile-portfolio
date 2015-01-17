@@ -582,7 +582,7 @@ var basicLefts = null;
 function createSlidingPizzas () {
 
   // We want 8 pizzas per row.
-  var cols = 6;
+  var cols = 8;
   // The height of each row is 256.
   var s = 256;
 
