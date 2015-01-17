@@ -381,8 +381,8 @@ var pizzaElementGenerator = function(i) {
 
   // Create the pizza with the image designed to fit without scaling.
   pizzaImage.src = "images/pizza125x125.png";
-  //pizzaImage.style.width = "100%";//"125px";
-  //pizzaImage.style.height = "100%";//"125px";
+  pizzaImage.style.width = "100%";//"125px";
+  pizzaImage.style.height = "100%";//"125px";
   pizzaImage.classList.add("img-responsive");
   pizzaImageContainer.appendChild(pizzaImage);
   pizzaContainer.appendChild(pizzaImageContainer);
@@ -511,8 +511,8 @@ var updateRequestInProcess = false;
 function updatePositions() {
 
   // Performance measuring support.
-  frame++;
-  window.performance.mark("mark_start_frame");
+  //frame++;
+  //window.performance.mark("mark_start_frame");
 
   // Update the position of each pizza based on the current scroll position.
   // Pizzas are stored in the global slidingPizzas variable.
@@ -531,12 +531,12 @@ function updatePositions() {
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
   // Super easy to create custom metrics.
-  window.performance.mark("mark_end_frame");
-  window.performance.measure("measure_frame_duration", "mark_start_frame", "mark_end_frame");
-  if (frame % 10 === 0) {
-    var timesToUpdatePosition = window.performance.getEntriesByName("measure_frame_duration");
-    logAverageFrame(timesToUpdatePosition);
-  }
+  //window.performance.mark("mark_end_frame");
+  //window.performance.measure("measure_frame_duration", "mark_start_frame", "mark_end_frame");
+  //if (frame % 10 === 0) {
+  //  var timesToUpdatePosition = window.performance.getEntriesByName("measure_frame_duration");
+  //  logAverageFrame(timesToUpdatePosition);
+  //}
 
   // The udpate is complete, allow another to be scheduled.
   updateRequestInProcess = false;
@@ -582,7 +582,7 @@ var basicLefts = null;
 function createSlidingPizzas () {
 
   // We want 8 pizzas per row.
-  var cols = 8;
+  var cols = 6;
   // The height of each row is 256.
   var s = 256;
 
@@ -604,6 +604,7 @@ function createSlidingPizzas () {
     elem.style.width = "75px";
     elem.basicLeft = (i % cols) * s;
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
+    
     // Add the pizza to the DOM.
     document.querySelector("#movingPizzas1").appendChild(elem);
   }
@@ -628,7 +629,5 @@ function createSlidingPizzas () {
    * function as soon as the browser is able to draw another frame.
    */
   window.requestAnimationFrame(updatePositions);
-  // Set the flag that denotes that an update request has been made.
-  updateRequestInProcess = true;
 }
 
