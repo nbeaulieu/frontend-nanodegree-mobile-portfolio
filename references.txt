@@ -16,3 +16,11 @@ http://www.html5rocks.com/en/tutorials/speed/animations/
 https://developers.google.com/speed/articles/reflow
 https://engineering.gosquared.com/optimising-60fps-everywhere-in-javascript
 http://css-tricks.com/almanac/properties/t/transform/
+
+Resources I used to learn about minimizing CSS and JS files:
+
+https://developers.google.com/closure/compiler/
+http://nodejs.org/
+https://www.npmjs.com/
+http://gruntjs.com/getting-started
+https://github.com/gruntjs/grunt-contrib-cssmin
