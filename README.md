@@ -1,5 +1,23 @@
 ## Website Performance Optimization portfolio project
 
+### Developer notes
+
+### General changes
+
+All CSS content has been inlined to remove render blocking.
+All pages satisfy the desired 90+ page speed insight scores.
+All images have been optimized on a one by one basis considering resolution, size on page, and transparency.
+Unused CSS has been removed from the live versions of the files.
+Grunt is used to minimize and uglify css, html, and javascript.  However, output requires a bit of hand-tweaking, something that would not be desireable in a production enviornment.  There's more to master here.
+
+### Pizza Page:
+
+Page Speed Insight scores: 90 for mobile and 93 for desktop.  The changes can be viewed if the minimized versions
+of the HTML (pizza.html) and Javascript (main.min.js) files are used.  I've left commented links in the file for review.  However, these versions
+are note live since readability for the user goes way down!  To see this live, please analyze the pizza.min.html version of the site.
+
+### Original notes for project completion
+
 Your challenge, if you wish to accept it (and we sure hope you will), is to optimize this online portfolio for speed! In particular, optimize the critical rendering path and make this page render as quickly as possible by applying the techniques you've picked up in the [Critical Rendering Path course](https://www.udacity.com/course/ud884).
 
 To get started, check out the repository, inspect the code,
