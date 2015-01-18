@@ -5,9 +5,68 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Include inline CSS before external files. -->
+  <!-- Not a great practice to inline so much CSS but it removes the render blocking and accomplishes the score we are after. -->
+  <style>
+    /* * {
+      outline: 1px solid black !important;
+    }*/
+    
+    * {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      -box-sizing: border-box;
+    }
+    
+    body {
+      font-family: "Trebuchet MS", Helvetica, sans-serif;
+      background: black;
+    }
+    
+    input {
+      background: grey;
+      font-size: 18px;
+    }
+    
+    form {
+      display: inline-block;
+    }
+    
+    .centered {
+      text-align: center;
+    }
+    
+    #pizzaSize {
+      font-weight: 800;
+    }
+    
+    .mover {
+      overflow-x: hidden; /* Makes sure that pizzas that aren't in the viewport are not drawn and taking up drawing cycles. */
+      position: fixed;    /* Makes sure that the pizzas don't scroll with the page but stay in place vertically. */
+      backface-visibility: hidden; /* Pairs with position: fixed to improve performance. */
+      -webkit-backface-visibility: hidden;
+      width: 256px;
+      z-index: -1;      /* Draws pizzas in own layer and beneath red backgorund. */
+    }
+    
+    .randomPizzaContainer {
+      overflow-x: hidden; /* Makes sure that pizzas that aren't in the viewport are not drawn and taking up drawing cycles. */
+      float: left;
+      display: flex;
+    }
+    
+    .randomPizzaContainer:after {
+      content: "";
+      display: table;
+      clear:both;
+    }
+    
+    .container {
+      background-color: rgba(240, 60, 60, 0.8);
+    }
+  </style>
 
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/bootstrap-grid.css">
+  <!-- link rel="stylesheet" href="css/style.css" -->
+  <link rel="stylesheet" href="css/bootstrap-grid.min.css">
 
 </head>
 
@@ -143,7 +202,7 @@
     </div>
     <div id="footer" class="col-md-12">Thanks for visiting! &copy; 2014 Udacity</div>
   </div>
-  <script type="text/javascript" src="js/main.js"></script>
+  <script type="text/javascript" src="js/main.min.js"></script>
 </body>
 
 </html>
