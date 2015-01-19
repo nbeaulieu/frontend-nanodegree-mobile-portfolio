@@ -11,6 +11,7 @@ Unused CSS has been removed from the live versions of the files (using grunt unc
 Grunt is used to minimize and uglify css, html, and javascript.  However, use in the html files currently requires a bit of hand-tweaking, something that would not be desireable in a production enviornment.  There's more to master here.
 
 The site can be viewed on github at:
+
 http://nbeaulieu.github.io/frontend-nanodegree-mobile-portfolio/
 http://nbeaulieu.github.io/frontend-nanodegree-mobile-portfolio/index.min.html
 
@@ -25,7 +26,7 @@ http://nbeaulieu.github.io/frontend-nanodegree-mobile-portfolio/project-mobile.m
 
 ### Pizza Page:
 
-The page achieves the 60 fps benchmark.  To accomplish this, I made a number of optimizations including optimizing the flow and relfow of the pizza mover javascript, debouncing the update by requesting an update via the browser's requestAnimationFrame instead of on every scroll.  I also calculated a more appropriate max number of pizzas since so many weren't visible and changed the CSS to hide the scrollable pizzas on overflow-y.
+The page achieves the 60 fps benchmark.  To accomplish this, I made a number of optimizations including (but not comprehensive, necessarily): optimizing the flow and relfow of the pizza mover javascript, debouncing the update by requesting an update via the browser's requestAnimationFrame instead of on every scroll, creating a more appropriate max number of scrollable pizzas since so many weren't visible, changing the CSS to hide the scrollable pizzas on overflow-y, and optimizing the page images based on resolution and transparency.
 
 Page Speed Insight scores: 90+ for mobile and desktop.  The changes can be viewed in the minimized versions of the HTML (pizza.min.html) and Javascript (main.min.js) files are used.  I've left commented links in the file for review.  However, these versions are not live since readability for the reviewer goes way down!  To see this live, please analyze the pizza.min.html version of the site.
 
