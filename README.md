@@ -5,16 +5,33 @@
 ### General changes
 
 All CSS content has been inlined to remove render blocking.
-All pages satisfy the desired 90+ page speed insight scores.
+All pages satisfy the desired 90+ page speed insight scores for desktop and mobile.
 All images have been optimized on a one by one basis considering resolution, size on page, and transparency.
-Unused CSS has been removed from the live versions of the files.
-Grunt is used to minimize and uglify css, html, and javascript.  However, output requires a bit of hand-tweaking, something that would not be desireable in a production enviornment.  There's more to master here.
+Unused CSS has been removed from the live versions of the files (using grunt uncss).
+Grunt is used to minimize and uglify css, html, and javascript.  However, use in the html files currently requires a bit of hand-tweaking, something that would not be desireable in a production enviornment.  There's more to master here.
+
+The site can be viewed on github at:
+http://nbeaulieu.github.io/frontend-nanodegree-mobile-portfolio/
+http://nbeaulieu.github.io/frontend-nanodegree-mobile-portfolio/index.min.html
+
+http://nbeaulieu.github.io/frontend-nanodegree-mobile-portfolio/project-2048.html
+http://nbeaulieu.github.io/frontend-nanodegree-mobile-portfolio/project-2048.min.html
+
+http://nbeaulieu.github.io/frontend-nanodegree-mobile-portfolio/project-webperf.html
+http://nbeaulieu.github.io/frontend-nanodegree-mobile-portfolio/project-webperf.min.html
+
+http://nbeaulieu.github.io/frontend-nanodegree-mobile-portfolio/project-mobile.html
+http://nbeaulieu.github.io/frontend-nanodegree-mobile-portfolio/project-mobile.min.html
 
 ### Pizza Page:
 
-Page Speed Insight scores: 90 for mobile and 93 for desktop.  The changes can be viewed if the minimized versions
-of the HTML (pizza.html) and Javascript (main.min.js) files are used.  I've left commented links in the file for review.  However, these versions
-are note live since readability for the user goes way down!  To see this live, please analyze the pizza.min.html version of the site.
+The page achieves the 60 fps benchmark.  To accomplish this, I made a number of optimizations including optimizing the flow and relfow of the pizza mover javascript, debouncing the update by requesting an update via the browser's requestAnimationFrame instead of on every scroll.  I also calculated a more appropriate max number of pizzas since so many weren't visible and changed the CSS to hide the scrollable pizzas on overflow-y.
+
+Page Speed Insight scores: 90+ for mobile and desktop.  The changes can be viewed in the minimized versions of the HTML (pizza.min.html) and Javascript (main.min.js) files are used.  I've left commented links in the file for review.  However, these versions are not live since readability for the reviewer goes way down!  To see this live, please analyze the pizza.min.html version of the site.
+
+The site can be viewed on github at:
+http://nbeaulieu.github.io/frontend-nanodegree-mobile-portfolio/views/pizza.html
+http://nbeaulieu.github.io/frontend-nanodegree-mobile-portfolio/views/pizza.min.html
 
 ### Original notes for project completion
 
