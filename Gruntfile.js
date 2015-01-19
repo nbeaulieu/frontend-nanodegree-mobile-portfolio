@@ -18,11 +18,15 @@ module.exports = function(grunt) {
     uncss: {
       dist: {
         files: {
-          //'css/compiled.css': ['*.html']
+          // Compiles the html files for the entry page of the app.
+          //'css/style.uncss.css': ['index.html'],
+          // Compiles the subpages separately since they use a subset of the css defined.  This is for
+          // page speed insigh scores.
+          'css/style-subpages.uncss.css': ['project-*.html']
           // Compiles the pizza html and removes unused CSS. This doesn't work on the style.css since the javascript
           // inserts some of the styles.  The utility doesn't detect this and changes to the html file would be ideal
           // to completely automate this.
-          'views/css/compiled.uncss.css': ['views/*.html'] 
+          //'views/css/bootstrap-grid.uncss.css': ['views/*.html'] 
         }
       },
       options: {
@@ -32,10 +36,12 @@ module.exports = function(grunt) {
     cssmin: {
       my_target: {
         files: {
-          //'css/compiled.min.css': ['css/compiled.css']
+          // Minimizes the css file for the main pages (non-pizzzeria).
+          //'css/style.uncss.min.css': ['css/style.uncss.css']
+          'css/style-subpages.uncss.min.css': ['css/style-subpages.uncss.css']
 
           // Minimizes the pizza css.  Currently only used for bootstrap files.  See uncss above.
-          'views/css/compiled.uncss.min.css': ['views/css/compiled.uncss.css'],
+          //'views/css/bootstrap-grid.uncss.min.css': ['views/css/bootstrap-grid.uncss.css'],
         }
       }
     },
@@ -47,7 +53,13 @@ module.exports = function(grunt) {
         },
         files: {
           // Minimizes the pizza html.
-          'views/pizza.min.html': ['views/pizza.html'],
+          //'views/pizza.min.html': ['views/pizza.html'],
+
+          // Define each of the files to minimize (main pages, not pizzeria).
+          //'index.min.html': ['index.html'],
+          //'project-2048.min.html': ['project-2048.html'],
+          //'project-mobile.min.html': ['project-mobile.html'],
+          'project-webperf.min.html': ['project-webperf.html'],
         }
       }
     }
@@ -63,6 +75,7 @@ module.exports = function(grunt) {
   //grunt.registerTask('default', ['uglify', 'cssmin', 'htmlmin']);
   //grunt.registerTask('default', ['uglify', 'uncss', 'cssmin']);
   //grunt.registerTask('default', ['uncss', 'cssmin']);
+  //grunt.registerTask('default', ['uncss']);
   //grunt.registerTask('default', ['uglify']);
   grunt.registerTask('default', ['htmlmin']);
 };
